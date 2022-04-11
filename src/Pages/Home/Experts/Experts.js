@@ -18,7 +18,7 @@ const experts = [
 
 const Experts = () => {
   return (
-    <div>
+    <div className="container">
       <h1 className="text-primary mt-3 text-center">Our Experts</h1>
       <div className="row">
         {
