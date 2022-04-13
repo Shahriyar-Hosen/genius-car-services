@@ -9,11 +9,11 @@ const Header = () => {
       <Navbar
         collapseOnSelect
         expand="lg"
-        bg="dark"
+        bg="primary"
         variant="dark"
         sticky="top"
       >
-        <Container>
+        <Container >
           <Navbar.Brand as={Link} to="/">
             {<img height={30} src={logo} alt="" />}
           </Navbar.Brand>
