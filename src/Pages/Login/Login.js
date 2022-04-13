@@ -1,21 +1,29 @@
 import React, { useRef } from "react";
 import { Button, Form } from "react-bootstrap";
+import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
+import auth from "../../Firebase/Firebase.inite";
 
 const Login = () => {
   const emailRef = useRef("");
   const passwordRef = useRef("");
   const navigate = useNavigate();
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
 
   const handleNavigate = () => {
     navigate("/register");
   };
 
+  if (user) {
+    navigate("/home");
+  }
   const handleSubmit = (event) => {
     event.preventDefault();
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-    console.log(email, password);
+
+    signInWithEmailAndPassword(email, password);
   };
   return (
     <div className="w-50 mx-auto">
@@ -36,6 +44,8 @@ const Login = () => {
             type="password"
             placeholder="Password"
           />
+          <p>{loading ? "loading..." : ""}</p>
+          <p>{error?.message}</p>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
           <Form.Check type="checkbox" label="Check me out" />

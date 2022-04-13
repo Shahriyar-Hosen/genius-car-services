@@ -1,8 +1,16 @@
 import React, { useRef } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import auth from "../../../Firebase/Firebase.inite";
 
 const Register = () => {
+  const [
+    createUserWithEmailAndPassword,
+    user,
+    loading,
+    error,
+  ] = useCreateUserWithEmailAndPassword(auth);
   const nameRef = useRef("");
   const emailRef = useRef("");
   const passwordRef = useRef("");
@@ -12,12 +20,18 @@ const Register = () => {
     navigate("/register");
   };
 
+  if (user) {
+    navigate('/home')
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const name = nameRef.current.value;
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-    console.log(name, email, password);
+    console.log(name);
+    
+    createUserWithEmailAndPassword(email, password)
   };
   return (
     <div className="w-50 mx-auto">
@@ -43,6 +57,8 @@ const Register = () => {
             type="password"
             placeholder="Password"
           />
+          <p>{loading ? "loading..." : ""}</p>
+          <p>{error?.message}</p>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
           <Form.Check type="checkbox" label="Check me out" />
