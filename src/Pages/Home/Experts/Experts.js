@@ -21,12 +21,9 @@ const Experts = () => {
     <div id="experts" className="container">
       <h1 className="text-primary mt-5 text-center">Our Experts</h1>
       <div className="row">
-        {
-            experts.map((expert) => <Expert
-             key={expert.id} 
-             expert={expert}
-             ></Expert>)
-        }
+        {experts.map((expert) => (
+          <Expert key={expert.id} expert={expert}></Expert>
+        ))}
       </div>
     </div>
   );
