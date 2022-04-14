@@ -3,6 +3,7 @@ import { Button, Form } from "react-bootstrap";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import auth from "../../Firebase/Firebase.inite";
+import SocialLogin from "./SocialLogin/SocialLogin";
 
 const Login = () => {
   const emailRef = useRef("");
@@ -33,16 +34,11 @@ const Login = () => {
     <div className="w-50 mx-auto">
       <h1 className="text-primary text-center mt-2">Please Login</h1>
       <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
+        <Form.Group className="mb-3 mt-3" controlId="formBasicEmail">
           <Form.Control ref={emailRef} type="email" placeholder="Enter email" />
-          <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-          </Form.Text>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
           <Form.Control
             ref={passwordRef}
             type="password"
@@ -52,10 +48,9 @@ const Login = () => {
           <p>{error?.message}</p>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="Check me out" />
         </Form.Group>
-        <Button variant="primary" type="submit">
-          Submit
+        <Button className="w-50 d-block mx-auto mb-4" variant="primary" type="submit">
+          Login
         </Button>
       </Form>
       <p className=" text-center mt-2">
@@ -68,6 +63,7 @@ const Login = () => {
           Please Register
         </Link>
       </p>
+      <SocialLogin></SocialLogin>
     </div>
   );
 };
