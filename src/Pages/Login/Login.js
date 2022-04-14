@@ -49,7 +49,7 @@ const Login = () => {
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
         </Form.Group>
-        <Button className="w-50 d-block mx-auto mb-4" variant="primary" type="submit">
+        <Button className="w-100 rounded-pill d-block mx-auto mb-4" variant="primary" type="submit">
           Login
         </Button>
       </Form>
