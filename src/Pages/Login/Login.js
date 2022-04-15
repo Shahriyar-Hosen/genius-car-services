@@ -6,6 +6,7 @@ import {
 } from "react-firebase-hooks/auth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import auth from "../../Firebase/Firebase.inite";
+import Loading from "../Loading/Loading";
 import SocialLogin from "./SocialLogin/SocialLogin";
 
 const Login = () => {
@@ -21,8 +22,8 @@ const Login = () => {
 
   let from = location.state?.from?.pathname || "/";
 
-  if (sending) {
-    console.log(sending);
+  if (loading) {
+    return <Loading></Loading>;
   }
 
   const handleNavigate = () => {
@@ -62,7 +63,6 @@ const Login = () => {
             placeholder="Password"
           />
         </Form.Group>
-        <p>{loading ? "loading..." : ""}</p>
         <p>{error?.message}</p>
         <p>{resetError?.message}</p>
         <Form.Group className="mb-3" controlId="formBasicCheckbox"></Form.Group>

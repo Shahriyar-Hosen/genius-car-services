@@ -8,8 +8,8 @@ import {
   useSignInWithGithub,
   useSignInWithGoogle,
 } from "react-firebase-hooks/auth";
-import { Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import Loading from "../../Loading/Loading";
 
 const SocialLogin = () => {
   const navigate = useNavigate();
@@ -22,9 +22,7 @@ const SocialLogin = () => {
     useSignInWithGithub(auth);
 
   if (googleLoading || fbLoading || githubLoading) {
-    return (
-      <Spinner className="text-center" animation="border" variant="primary" />
-    );
+    return <Loading></Loading>;
   }
 
   if (googleUser) {

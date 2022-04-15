@@ -7,6 +7,7 @@ import {
 } from "react-firebase-hooks/auth";
 import auth from "../../../Firebase/Firebase.inite";
 import SocialLogin from "../SocialLogin/SocialLogin";
+import Loading from "../../Loading/Loading";
 
 const Register = () => {
   const [createUserWithEmailAndPassword, user, loading, error] =
@@ -18,6 +19,10 @@ const Register = () => {
   const passwordRef = useRef("");
   const navigate = useNavigate();
   const [agree, setAgree] = useState(false);
+
+  if (loading || updating) {
+    return <Loading></Loading>;
+  }
 
   const handleNavigate = () => {
     navigate("/register");
