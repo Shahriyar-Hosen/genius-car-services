@@ -1,16 +1,13 @@
 import React, { useRef } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import auth from "../../../Firebase/Firebase.inite";
+import SocialLogin from "../SocialLogin/SocialLogin";
 
 const Register = () => {
-  const [
-    createUserWithEmailAndPassword,
-    user,
-    loading,
-    error,
-  ] = useCreateUserWithEmailAndPassword(auth);
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth);
   const nameRef = useRef("");
   const emailRef = useRef("");
   const passwordRef = useRef("");
@@ -21,7 +18,7 @@ const Register = () => {
   };
 
   if (user) {
-    navigate('/home')
+    navigate("/home");
   }
 
   const handleSubmit = (event) => {
@@ -30,8 +27,8 @@ const Register = () => {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
     console.log(name);
-    
-    createUserWithEmailAndPassword(email, password)
+
+    createUserWithEmailAndPassword(email, password);
   };
   return (
     <div className="w-50 mx-auto">
@@ -57,8 +54,8 @@ const Register = () => {
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
           <Form.Check type="checkbox" label="Check me out" />
         </Form.Group>
-        <Button variant="primary" type="submit">
-          Submit
+        <Button className="w-100 rounded-pill d-block mx-auto mb-4" variant="primary" type="submit">
+        Register
         </Button>
       </Form>
       <p className=" text-center mt-2">
@@ -71,6 +68,7 @@ const Register = () => {
           Please Login
         </Link>
       </p>
+      <SocialLogin></SocialLogin>
     </div>
   );
 };
