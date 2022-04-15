@@ -1,6 +1,9 @@
 import React, { useRef } from "react";
 import { Button, Form } from "react-bootstrap";
-import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import {
+  useSendPasswordResetEmail,
+  useSignInWithEmailAndPassword,
+} from "react-firebase-hooks/auth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import auth from "../../Firebase/Firebase.inite";
 import SocialLogin from "./SocialLogin/SocialLogin";
@@ -13,8 +16,14 @@ const Login = () => {
 
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
+  const [sendPasswordResetEmail, sending, resetError] =
+    useSendPasswordResetEmail(auth);
 
   let from = location.state?.from?.pathname || "/";
+
+  if (sending) {
+    console.log(sending);
+  }
 
   const handleNavigate = () => {
     navigate("/register");
@@ -23,12 +32,20 @@ const Login = () => {
   if (user) {
     navigate(from, { replace: true });
   }
+
   const handleSubmit = (event) => {
     event.preventDefault();
+
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
     signInWithEmailAndPassword(email, password);
+  };
+
+  const resetPassword = async () => {
+    const email = emailRef.current.value;
+    await sendPasswordResetEmail(email);
+    alert("Sent email");
   };
   return (
     <div className="w-50 mx-auto">
@@ -44,12 +61,16 @@ const Login = () => {
             type="password"
             placeholder="Password"
           />
-          <p>{loading ? "loading..." : ""}</p>
-          <p>{error?.message}</p>
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-        </Form.Group>
-        <Button className="w-100 rounded-pill d-block mx-auto mb-4" variant="primary" type="submit">
+        <p>{loading ? "loading..." : ""}</p>
+        <p>{error?.message}</p>
+        <p>{resetError?.message}</p>
+        <Form.Group className="mb-3" controlId="formBasicCheckbox"></Form.Group>
+        <Button
+          className="w-100 rounded-pill d-block mx-auto mb-4"
+          variant="primary"
+          type="submit"
+        >
           Login
         </Button>
       </Form>
@@ -58,9 +79,19 @@ const Login = () => {
         <Link
           to="/register"
           onClick={handleNavigate}
-          className="text-danger text-decoration-none"
+          className="text-primary text-decoration-none"
         >
           Please Register
+        </Link>
+      </p>
+      <p className=" text-center">
+        Forget Password?{" "}
+        <Link
+          to="/register"
+          onClick={resetPassword}
+          className="text-primary text-decoration-none"
+        >
+          Reset Password
         </Link>
       </p>
       <SocialLogin></SocialLogin>

@@ -63,7 +63,7 @@ const Register = () => {
         <Link
           to="/login"
           onClick={handleNavigate}
-          className="text-danger text-decoration-none"
+          className="text-primary text-decoration-none"
         >
           Please Login
         </Link>
