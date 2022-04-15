@@ -3,7 +3,11 @@ import google from "../../../images/social/google.png";
 import facebook from "../../../images/social/facebook.png";
 import github from "../../../images/social/github.png";
 import auth from "../../../Firebase/Firebase.inite";
-import { useSignInWithGoogle } from "react-firebase-hooks/auth";
+import {
+  useSignInWithFacebook,
+  useSignInWithGithub,
+  useSignInWithGoogle,
+} from "react-firebase-hooks/auth";
 import { Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
@@ -12,8 +16,27 @@ const SocialLogin = () => {
 
   const [signInWithGoogle, googleUser, googleLoading, googlError] =
     useSignInWithGoogle(auth);
+  const [signInWithFacebook, fbUser, fbLoading, fbError] =
+    useSignInWithFacebook(auth);
+  const [signInWithGithub, githubUser, githubLoading, githubError] =
+    useSignInWithGithub(auth);
+
+  if (googleLoading || fbLoading || githubLoading) {
+    return (
+      <Spinner className="text-center" animation="border" variant="primary" />
+    );
+  }
 
   if (googleUser) {
+    console.log(googleUser);
+  }
+  if (fbUser) {
+    console.log(fbUser);
+  }
+  if (githubUser) {
+    console.log(githubUser);
+  }
+  if (googleUser || fbUser || githubUser) {
     navigate("/home");
   }
 
@@ -39,14 +62,16 @@ const SocialLogin = () => {
         CONTINUE WITH GOOGLE
       </button>
 
-      {googleLoading ? <Spinner animation="border" variant="primary" /> : ""}
       {googlError ? (
         <p className="text-danger text-center">Error: {googlError.message}</p>
       ) : (
         ""
       )}
 
-      <button className="btn btn-primary mt-2 w-100 rounded-pill">
+      <button
+        onClick={() => signInWithFacebook()}
+        className="btn btn-primary mt-2 w-100 rounded-pill"
+      >
         <img
           style={{ width: "30px" }}
           className="mx-2 rounded-circle"
@@ -55,10 +80,26 @@ const SocialLogin = () => {
         />
         CONTINUE WITH FACEBOOK
       </button>
-      <button className="btn btn-dark mt-2 w-100 rounded-pill">
+
+      {fbError ? (
+        <p className="text-danger text-center">Error: {fbError.message}</p>
+      ) : (
+        ""
+      )}
+
+      <button
+        onClick={() => signInWithGithub()}
+        className="btn btn-dark mt-2 w-100 rounded-pill"
+      >
         <img src={github} className="mx-2 rounded-circle" alt="" />
         CONTINUE WITH GITHUB
       </button>
+
+      {githubError ? (
+        <p className="text-danger text-center">Error: {githubError.message}</p>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
