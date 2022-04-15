@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
@@ -12,6 +12,7 @@ const Register = () => {
   const emailRef = useRef("");
   const passwordRef = useRef("");
   const navigate = useNavigate();
+  const [agree, setAgree] = useState(false);
 
   const handleNavigate = () => {
     navigate("/register");
@@ -28,7 +29,9 @@ const Register = () => {
     const password = passwordRef.current.value;
     console.log(name);
 
-    createUserWithEmailAndPassword(email, password);
+    if (agree) {
+      createUserWithEmailAndPassword(email, password);
+    }
   };
   return (
     <div className="w-50 mx-auto">
@@ -52,10 +55,20 @@ const Register = () => {
           <p>{error?.message}</p>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="Check me out" />
+          <Form.Check
+            onClick={() => setAgree(!agree)}
+            className={agree ? "text-success" : ""}
+            type="checkbox"
+            label="Accept Genius Car Terms and Condition"
+          />
         </Form.Group>
-        <Button className="w-100 rounded-pill d-block mx-auto mb-4" variant="primary" type="submit">
-        Register
+        <Button
+        disabled={!agree}
+          className="w-100 rounded-pill d-block mx-auto mb-4"
+          variant="primary"
+          type="submit"
+        >
+          Register
         </Button>
       </Form>
       <p className=" text-center mt-2">
