@@ -8,6 +8,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import auth from "../../Firebase/Firebase.inite";
 import Loading from "../Loading/Loading";
 import SocialLogin from "./SocialLogin/SocialLogin";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const emailRef = useRef("");
@@ -22,7 +24,7 @@ const Login = () => {
 
   let from = location.state?.from?.pathname || "/";
 
-  if (loading) {
+  if (loading || sending) {
     return <Loading></Loading>;
   }
 
@@ -46,7 +48,7 @@ const Login = () => {
   const resetPassword = async () => {
     const email = emailRef.current.value;
     await sendPasswordResetEmail(email);
-    alert("Sent email");
+    toast("Sent email");
   };
   return (
     <div className="w-50 mx-auto">
@@ -86,15 +88,16 @@ const Login = () => {
       </p>
       <p className=" text-center">
         Forget Password?{" "}
-        <Link
-          to="/register"
+        <Button
           onClick={resetPassword}
-          className="text-primary text-decoration-none"
+          variant="link"
+          className="text-decoration-none"
         >
           Reset Password
-        </Link>
+        </Button>
       </p>
       <SocialLogin></SocialLogin>
+      <ToastContainer />
     </div>
   );
 };
