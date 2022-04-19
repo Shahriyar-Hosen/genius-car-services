@@ -8,11 +8,12 @@ import {
 import auth from "../../../Firebase/Firebase.inite";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import Loading from "../../Loading/Loading";
+import PageTitle from "../../Shared/PageTitle/PageTitle";
 
 const Register = () => {
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
-  const [updateProfile, updating, updatingError] = useUpdateProfile(auth);
+  const [updateProfile, updating] = useUpdateProfile(auth);
 
   const nameRef = useRef("");
   const emailRef = useRef("");
@@ -45,6 +46,7 @@ const Register = () => {
   };
   return (
     <div className="w-50 mx-auto">
+    <PageTitle title="Register"></PageTitle>
       <h1 className="text-primary text-center mt-2">Please Register</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
