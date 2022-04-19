@@ -9,6 +9,7 @@ import auth from "../../../Firebase/Firebase.inite";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import Loading from "../../Loading/Loading";
 import PageTitle from "../../Shared/PageTitle/PageTitle";
+import { toast, ToastContainer } from "react-toastify";
 
 const Register = () => {
   const [createUserWithEmailAndPassword, user, loading, error] =
@@ -41,7 +42,7 @@ const Register = () => {
 
     await createUserWithEmailAndPassword(email, password);
     await updateProfile({ displayName: name });
-    alert("Updated profile");
+    toast("Updated profile");
     navigate("/home");
   };
   return (
@@ -94,6 +95,7 @@ const Register = () => {
         </Link>
       </p>
       <SocialLogin></SocialLogin>
+      <ToastContainer />
     </div>
   );
 };
