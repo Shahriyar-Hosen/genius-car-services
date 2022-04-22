@@ -7,7 +7,19 @@ const AddService = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    console.log(data);
+    const url = `http://localhost:5000/service`;
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((result) => console.log(result));
+  };
   return (
     <div className="w-50 mx-auto my-5">
       <form className="d-flex flex-column" onSubmit={handleSubmit(onSubmit)}>
