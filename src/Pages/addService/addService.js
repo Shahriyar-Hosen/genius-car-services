@@ -5,22 +5,36 @@ const AddService = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => console.log(data);
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        {/* register your input into the hook by invoking the "register" function */}
-        <input defaultValue="test" {...register("example")} />
+    <div className="w-50 mx-auto my-5">
+      <form className="d-flex flex-column" onSubmit={handleSubmit(onSubmit)}>
+        <input
+          className="mb-2 "
+          placeholder="Name"
+          {...register("name", { required: true })}
+        />
+        <input
+          className="mb-2 "
+          placeholder="Price"
+          {...register("price", { required: true })}
+        />
+        <textarea
+          className="mb-2 "
+          placeholder="Description"
+          {...register("description", { required: true })}
+        />
+        <input
+          className="mb-2 "
+          placeholder="Image URL"
+          {...register("img", { required: true })}
+        />
 
-        {/* include validation with required or other standard HTML validation rules */}
-        <input {...register("exampleRequired", { required: true })} />
-        {/* errors will return when field validation fails  */}
         {errors.exampleRequired && <span>This field is required</span>}
 
-        <input type="submit" />
+        <input type="submit" className="btn btn-primary" value="Add Service" />
       </form>
     </div>
   );
