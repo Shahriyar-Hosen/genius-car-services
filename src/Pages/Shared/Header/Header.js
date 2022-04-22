@@ -43,6 +43,18 @@ const Header = () => {
               </NavDropdown>
             </Nav>
             <Nav>
+              {user ? (
+                <>
+                  <Nav.Link eventKey={2} as={Link} to="/service/add">
+                    Add Service
+                  </Nav.Link>
+                  <Nav.Link eventKey={2} as={Link} to="/service/manage">
+                    Manage
+                  </Nav.Link>
+                </>
+              ) : (
+                ""
+              )}
               <Nav.Link as={Link} to="/about">
                 about
               </Nav.Link>
