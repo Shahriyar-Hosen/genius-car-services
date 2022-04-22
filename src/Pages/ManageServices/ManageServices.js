@@ -8,17 +8,17 @@ const ManageServices = () => {
     const proceed = window.confirm("Are you sure");
 
     if (proceed) {
-      console.log("services id: ", id);
-      const url = `http://localhost:5000/user/${id}`;
+      const url = `http://localhost:5000/service/${id}`;
+
       fetch(url, {
         method: "DELETE",
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
+          console.log("services id: ", id);
 
           if (data.deletedCount > 0) {
-            console.log("delete");
+            console.log("Delete with UI");
             const remaining = services.filter((user) => user._id !== id);
 
             setServices(remaining);
