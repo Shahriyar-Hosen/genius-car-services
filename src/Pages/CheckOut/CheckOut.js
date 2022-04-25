@@ -53,7 +53,7 @@ const CheckOut = () => {
           type="text"
           name="name"
           placeholder="Name"
-          value={user.displayName}
+          value={user?.displayName}
           readOnly
           disabled
           id=""
@@ -64,7 +64,7 @@ const CheckOut = () => {
           type="email"
           name="email"
           placeholder="email"
-          value={user.email}
+          value={user?.email}
           readOnly
           disabled
           id=""
@@ -75,7 +75,7 @@ const CheckOut = () => {
           type="text"
           name="service"
           placeholder="service"
-          value={service.name}
+          value={service?.name}
           readOnly
           disabled
           id=""
