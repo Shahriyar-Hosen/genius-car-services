@@ -1,13 +1,16 @@
-import React from 'react';
-import PageTitle from '../Shared/PageTitle/PageTitle';
+import { useParams } from "react-router-dom";
+import useServiceDetails from "../hooks/useServiceDetails";
+import PageTitle from "../Shared/PageTitle/PageTitle";
 
 const CheckOut = () => {
-    return (
-        <div>
-        <PageTitle title="Home"></PageTitle>
-            <h1>This is proceed Checkout page </h1>
-        </div>
-    );
+    const { serviceId } = useParams();
+    const [service] = useServiceDetails(serviceId);
+  return (
+    <div>
+      <PageTitle title="Home"></PageTitle>
+      <h1>Please Order: {service.name}</h1>
+    </div>
+  );
 };
 
 export default CheckOut;
