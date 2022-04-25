@@ -36,6 +36,7 @@ const CheckOut = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
+        toast("Your order is booked");
         event.target.reset();
       })
       .catch((error) => {

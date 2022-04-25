@@ -9,7 +9,7 @@ import auth from "../../../Firebase/Firebase.inite";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import Loading from "../../Loading/Loading";
 import PageTitle from "../../Shared/PageTitle/PageTitle";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const [createUserWithEmailAndPassword, user, loading, error] =
@@ -95,7 +95,6 @@ const Register = () => {
         </Link>
       </p>
       <SocialLogin></SocialLogin>
-      <ToastContainer />
     </div>
   );
 };
