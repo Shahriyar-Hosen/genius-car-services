@@ -11,6 +11,7 @@ import SocialLogin from "./SocialLogin/SocialLogin";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PageTitle from "../Shared/PageTitle/PageTitle";
+// import axios from "axios";
 
 const Login = () => {
   const emailRef = useRef("");
@@ -34,16 +35,36 @@ const Login = () => {
   };
 
   if (user) {
-    navigate(from, { replace: true });
+    // navigate(from, { replace: true });
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
-    signInWithEmailAndPassword(email, password);
+    await signInWithEmailAndPassword(email, password);
+    // axios.post("http://localhost:5000/order", order).then((response) => {
+    //   console.log(response);
+    // });
+
+    fetch("http://localhost:5000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+        localStorage.setItem("accessToken", data.accessToken);
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   const resetPassword = async () => {
@@ -53,7 +74,7 @@ const Login = () => {
   };
   return (
     <div className="w-50 mx-auto">
-    <PageTitle title="Home"></PageTitle>
+      <PageTitle title="Home"></PageTitle>
       <h1 className="text-primary text-center mt-2">Please Login</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3 mt-3" controlId="formBasicEmail">
