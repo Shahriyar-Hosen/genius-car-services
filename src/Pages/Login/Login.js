@@ -11,7 +11,7 @@ import SocialLogin from "./SocialLogin/SocialLogin";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PageTitle from "../Shared/PageTitle/PageTitle";
-// import axios from "axios";
+import axios from "axios";
 
 const Login = () => {
   const emailRef = useRef("");
@@ -45,26 +45,11 @@ const Login = () => {
     const password = passwordRef.current.value;
 
     await signInWithEmailAndPassword(email, password);
-    // axios.post("http://localhost:5000/order", order).then((response) => {
-    //   console.log(response);
-    // });
+    const { data } = await axios.post("http://localhost:5000/login", { email });
+    console.log("Success:", data);
+    localStorage.setItem("accessToken", data.accessToken);
+    navigate(from, { replace: true });
 
-    fetch("http://localhost:5000/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
-        localStorage.setItem("accessToken", data.accessToken);
-        navigate(from, { replace: true });
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
   };
 
   const resetPassword = async () => {
