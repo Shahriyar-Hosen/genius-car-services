@@ -8,7 +8,7 @@ const AddService = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    const url = `http://localhost:5000/service`;
+    const url = `https://shrouded-beach-15194.herokuapp.com/service`;
     fetch(url, {
       method: "POST",
       headers: {

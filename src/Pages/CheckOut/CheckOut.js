@@ -32,13 +32,13 @@ Step-2: node_modules ডিলিট করে আবার ইন্সটল �
 
 Step-3: npm install web-vitals --save-dev এই কমান্ড টি আপনার টার্মিনাল এ রান করুন। */
 
-    axios.post("http://localhost:5000/order", order).then((response) => {
+    axios.post("https://shrouded-beach-15194.herokuapp.com/order", order).then((response) => {
       console.log("Success:", response);
         toast("Your order is booked");
         event.target.reset();
     });
 
-    // fetch("http://localhost:5000/order", {
+    // fetch("https://shrouded-beach-15194.herokuapp.com/order", {
     //   method: "POST",
     //   headers: {
     //     "Content-Type": "application/json",
