@@ -9,7 +9,8 @@ import auth from "../../../Firebase/Firebase.inite";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import Loading from "../../Loading/Loading";
 import PageTitle from "../../Shared/PageTitle/PageTitle";
-import { toast } from "react-toastify";
+import { toast, useToast } from "react-toastify";
+import useToken from "../../hooks/useToken";
 
 const Register = () => {
   const [createUserWithEmailAndPassword, user, loading, error] =
@@ -21,17 +22,18 @@ const Register = () => {
   const passwordRef = useRef("");
   const navigate = useNavigate();
   const [agree, setAgree] = useState(false);
+  const [token] = useToken(user);
+
+  const handleNavigate = () => {
+    navigate("/login");
+  };
 
   if (loading || updating) {
     return <Loading></Loading>;
   }
 
-  const handleNavigate = () => {
-    navigate("/register");
-  };
-
-  if (user) {
-    console.log(user);
+  if (token) {
+    navigate("/");
   }
 
   const handleSubmit = async (event) => {

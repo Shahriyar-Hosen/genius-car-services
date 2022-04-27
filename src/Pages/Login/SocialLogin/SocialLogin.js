@@ -10,6 +10,7 @@ import {
 } from "react-firebase-hooks/auth";
 import { useLocation, useNavigate } from "react-router-dom";
 import Loading from "../../Loading/Loading";
+import useToken from "../../hooks/useToken";
 
 const SocialLogin = () => {
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ const SocialLogin = () => {
     useSignInWithFacebook(auth);
   const [signInWithGithub, githubUser, githubLoading, githubError] =
     useSignInWithGithub(auth);
+    const [token] = useToken(googleUser || fbUser || githubUser);
     
   const location = useLocation();
   let from = location.state?.from?.pathname || "/";
@@ -37,7 +39,7 @@ const SocialLogin = () => {
   if (githubUser) {
     console.log(githubUser);
   }
-  if (googleUser || fbUser || githubUser) {
+  if (token) {
     navigate(from, { replace: true });
   }
 

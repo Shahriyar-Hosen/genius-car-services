@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 const AddService = () => {
   const {
@@ -17,7 +18,11 @@ const AddService = () => {
       body: JSON.stringify(data),
     })
       .then((res) => res.json())
-      .then((result) => console.log(result));
+      .then((result) => {
+        console.log("Success:", result);
+        toast("Service Add Successfully");
+        // value reset korte hobe but kemne
+      });
   };
   return (
     <div className="w-50 mx-auto my-5">

@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useRef } from "react";
 import { Button, Form } from "react-bootstrap";
 import {
@@ -9,6 +8,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import auth from "../../Firebase/Firebase.inite";
+import useToken from "../hooks/useToken";
 import Loading from "../Loading/Loading";
 import PageTitle from "../Shared/PageTitle/PageTitle";
 import SocialLogin from "./SocialLogin/SocialLogin";
@@ -23,6 +23,7 @@ const Login = () => {
     useSignInWithEmailAndPassword(auth);
   const [sendPasswordResetEmail, sending, resetError] =
     useSendPasswordResetEmail(auth);
+    const {token} = useToken(user);
 
   let from = location.state?.from?.pathname || "/";
 
@@ -34,8 +35,8 @@ const Login = () => {
     navigate("/register");
   };
 
-  if (user) {
-    // navigate(from, { replace: true });
+  if (token) {
+    navigate(from, { replace: true });
   }
 
   const handleSubmit = async (event) => {
@@ -45,10 +46,13 @@ const Login = () => {
     const password = passwordRef.current.value;
 
     await signInWithEmailAndPassword(email, password);
-    const { data } = await axios.post("https://shrouded-beach-15194.herokuapp.com/login", { email });
-    console.log("Success:", data);
-    localStorage.setItem("accessToken", data.accessToken);
-    navigate(from, { replace: true });
+
+    // useToken hooks ------------->
+    // const { data } = await axios.post("https://shrouded-beach-15194.herokuapp.com/login", { email });
+    // console.log("Success:", data);
+    // localStorage.setItem("accessToken", data.accessToken);
+    // navigate(from, { replace: true });
+    // -----------------------------------------------------
 
   };
 
